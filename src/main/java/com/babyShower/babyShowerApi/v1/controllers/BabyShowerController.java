@@ -55,12 +55,12 @@ public class BabyShowerController {
 		return new ResponseEntity<ArrayList<ListaEntity>>(lista, HttpStatus.OK);
 	}
 	
-	@GetMapping("/lista/{id}")
-	public ResponseEntity<?> updateItem(@PathVariable Integer id) {
+	@PostMapping("/lista")
+	public ResponseEntity<?> updateItem(@RequestBody ArrayList<ListaEntity> listaR) {
 		Map<String, Object> result = new HashMap<>();
 		
 		try {
-			this.listaService.updateRegaloById(id);
+			this.listaService.updateRegaloById(listaR);
 		} catch (Exception e) {
 			result.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
 			result.put("error", e.getMessage());

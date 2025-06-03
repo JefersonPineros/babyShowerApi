@@ -9,6 +9,6 @@ public interface IListaService {
 	
 	public ArrayList<ListaEntity> getListaRegalos();
 	
-	public void updateRegaloById(Integer id) throws Exception, SQLException;
+	public void updateRegaloById(ArrayList<ListaEntity> list) throws Exception, SQLException;
 	
 }

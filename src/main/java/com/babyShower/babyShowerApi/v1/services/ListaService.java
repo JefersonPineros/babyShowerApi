@@ -2,6 +2,7 @@ package com.babyShower.babyShowerApi.v1.services;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,18 +24,23 @@ public class ListaService implements IListaService {
 	}
 
 	@Override
-	public void updateRegaloById(Integer id) throws Exception, SQLException {
+	public void updateRegaloById(ArrayList<ListaEntity> list) throws Exception, SQLException {
 		
-		ListaEntity updateItem = this.listaRepository.findById(id).orElse(null);
-		
-		if (updateItem != null) {
-			ListaEntity newUpdate = new ListaEntity();
-			newUpdate.setId(updateItem.getId());
-			newUpdate.setCategoria(updateItem.getCategoria());
-			newUpdate.setNombre(updateItem.getNombre());
-			newUpdate.setCantidad(updateItem.getCantidad() - 1);
+		for (ListaEntity itemR : list ) {
 			
-			this.listaRepository.saveAndFlush(newUpdate);
+			ListaEntity updateItem = this.listaRepository.findById(itemR.getId()).orElse(null);
+			
+			System.out.println(updateItem);
+			if (updateItem != null) {
+				
+				ListaEntity newUpdate = new ListaEntity();
+				newUpdate.setId(updateItem.getId());
+				newUpdate.setCategoria(updateItem.getCategoria());
+				newUpdate.setNombre(updateItem.getNombre());
+				newUpdate.setCantidad(updateItem.getCantidad() - 1);
+				
+				this.listaRepository.saveAndFlush(newUpdate);
+			}
 		}
 		
 	}
